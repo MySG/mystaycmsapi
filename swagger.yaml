@@ -1,0 +1,86 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: MyStay CMS API
+  description: API for MyStay CMS, currently supports only data retrieval
+  contact:
+    name: Denis Fiser
+    email: denis.fiser@mystay.cz
+    url: http://mystay.cz
+host: myadmin.mystay.cz
+basePath: /api/cms/v1
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /pages:
+    get:
+      description: |
+        Returns all pages of specified hotel
+      operationId: findPages
+      parameters:
+        - name: hotel
+          in: query
+          description: hotel to filter by
+          required: true
+          type: string
+      responses:
+        200:
+          description: pages response
+          schema:
+            $ref: '#/definitions/Pages'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Pages:
+    required:
+      - code
+      - message
+      - pages
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      pages:
+        type: array
+        items:
+          $ref: '#/definitions/Page'
+  Page:
+    required:
+      - id
+      - title
+      - type
+      - order
+      - content
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Page ID
+      title:
+        type: string
+        description: Page description
+      order:
+        type: integer
+        format: int32
+        description: Page ordering
+      content:
+        type: string
+        description: Text or HTML content
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
