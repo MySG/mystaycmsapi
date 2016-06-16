@@ -11,8 +11,6 @@ host: myadmin.mystay.cz
 basePath: /api/cms/v1
 schemes:
   - http
-consumes:
-  - application/json
 produces:
   - application/json
 paths:
@@ -56,6 +54,7 @@ definitions:
     required:
       - id
       - title
+      - lng
       - type
       - order
       - content
@@ -67,6 +66,9 @@ definitions:
       title:
         type: string
         description: Page description
+      lng:
+        type: string
+        description: Page language
       order:
         type: integer
         format: int32
