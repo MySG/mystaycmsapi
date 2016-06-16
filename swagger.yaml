@@ -53,29 +53,51 @@ definitions:
   Page:
     required:
       - id
-      - title
-      - lng
-      - type
-      - order
-      - content
+      - hotelId
+      - hotelCode
+      - properties
     properties:
       id:
         type: integer
         format: int32
         description: Page ID
-      title:
-        type: string
-        description: Page description
-      lng:
-        type: string
-        description: Page language
-      order:
+      hotelId:
         type: integer
         format: int32
-        description: Page ordering
-      content:
+        description: Hotel ID
+      hotelCode:
         type: string
-        description: Text or HTML content
+        description: Hotel code
+      properties:
+        type: array
+        description: Page properties
+        items: 
+          $ref: '#/definitions/PageProperty'
+  PageProperty:
+    required:
+      - id
+      - page
+      - lng
+      - name
+      - value
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Property ID
+      page:
+        type: integer
+        format: int64
+        description: Parent page ID
+      lng:
+        type: string
+        description: Language code
+      name:
+        type: string
+        description: Property name/key
+      value:
+        type: string
+        description: Property value
   Error:
     required:
       - code
