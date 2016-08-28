@@ -25,6 +25,41 @@ paths:
           description: hotel to filter by
           required: true
           type: string
+        - name: lng
+          in: query
+          description: language code
+          type: string
+          required: false
+      responses:
+        200:
+          description: pages response
+          schema:
+            $ref: '#/definitions/Pages'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /updates:
+    post:
+      description: |
+        Returns changed pages
+      operationId: findUpdatedPages
+      parameters:
+        - name: clientId
+          in: formData
+          description: Client ID
+          required: false
+          type: string
+        - name: deviceId
+          in: formData
+          description: Device ID
+          type: string
+          required: false
+        - name: updateRequest
+          in: formData
+          description: 'Update request. Syntax: <page1 id>:<page1 hash>[;<page2 id>:<page2 hash>[; ...]]'
+          type: string
+          required: true
       responses:
         200:
           description: pages response
@@ -55,6 +90,8 @@ definitions:
       - id
       - hotelId
       - hotelCode
+      - lng
+      - hash
       - properties
     properties:
       id:
@@ -68,6 +105,12 @@ definitions:
       hotelCode:
         type: string
         description: Hotel code
+      lng:
+        type: string
+        description: Language code
+      hash:
+        type: string
+        description: Language code
       properties:
         type: array
         description: Page properties
@@ -77,7 +120,6 @@ definitions:
     required:
       - id
       - page
-      - lng
       - name
       - value
     properties:
@@ -89,9 +131,6 @@ definitions:
         type: integer
         format: int64
         description: Parent page ID
-      lng:
-        type: string
-        description: Language code
       name:
         type: string
         description: Property name/key
