@@ -45,9 +45,9 @@ paths:
         Returns changed pages
       operationId: findUpdatedPages
       parameters:
-        - name: clientId
+        - name: userId
           in: formData
-          description: Client ID
+          description: User ID
           required: false
           type: string
         - name: deviceId
